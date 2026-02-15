@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Slashie創業圖卡：抽一張卡，用一句金句＋三條提問，將創業焦慮轉為清晰行動。" />
+  <title>Slashie創業圖卡</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1722;
+      --card2:#0e1620;
+      --text:#e9eef6;
+      --muted:#a9b4c4;
+      --line:#223043;
+      --brand:#7c5cff;
+      --brand2:#26d6a6;
+      --danger:#ff5470;
+      --warning:#ffcc66;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1080px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(900px 700px at 90% 5%, rgba(38,214,166,.20), transparent 55%),
+        radial-gradient(800px 600px at 50% 120%, rgba(255,204,102,.10), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px;}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(15,23,34,.86), rgba(15,23,34,.58));
+      backdrop-filter: blur(10px);
+      border-radius:20px;
+      box-shadow: var(--shadow2);
+      position:sticky; top:10px; z-index:50;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: conic-gradient(from 210deg, var(--brand), var(--brand2), var(--brand));
+      box-shadow: 0 10px 25px rgba(124,92,255,.25);
+    }
+    .brand h1{font-size:14.5px; margin:0; letter-spacing:.2px}
+    .brand small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.16s ease;
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none;
+      user-select:none;
+      white-space:nowrap;
+      font-size:13.5px;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); background:rgba(255,255,255,.06)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(38,214,166,.55)); border-color: rgba(124,92,255,.55)}
+    .btn.primary:hover{filter:saturate(1.07)}
+    .btn.danger{border-color: rgba(255,84,112,.45); background: rgba(255,84,112,.10)}
+    .btn.ghost{background:transparent}
+
+    .grid{display:grid; gap:14px; grid-template-columns: 1.2fr .8fr; margin-top:16px}
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} header{position:static} }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(15,23,34,.82), rgba(14,22,32,.72));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+
+    .hero h2{margin:0 0 10px; font-size:26px; letter-spacing:.2px}
+    .hero p{margin:0; color:var(--muted)}
+    .hero .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+
+    .steps{margin-top:14px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    @media (max-width: 740px){ .steps{grid-template-columns:1fr} }
+    .step{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    .step b{display:block; font-size:12.5px; color:rgba(255,255,255,.92); margin-bottom:4px}
+    .step span{color:var(--muted); font-size:12.5px}
+
+    .section-title{display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+    .section-title h3{margin:0; font-size:15px}
+    .section-title small{color:var(--muted)}
+
+    .chapters{display:grid; gap:10px; margin-top:10px}
+    .chapter{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .chapter .meta{min-width:0}
+    .chapter .meta .t1{font-size:13.5px; margin:0; font-weight:650}
+    .chapter .meta .t2{font-size:12.5px; margin:2px 0 0; color:var(--muted)}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:rgba(255,255,255,.92);
+    }
+    .tag .dot{width:8px; height:8px; border-radius:99px; background:var(--brand)}
+
+    .cardview{
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(17,26,38,.86), rgba(14,22,32,.72));
+      border-radius:24px;
+      padding:16px;
+    }
+    .cardhead{display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px}
+    .badge{
+      display:inline-flex; flex-direction:column;
+      gap:2px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      min-width: 240px;
+    }
+    @media (max-width:520px){ .badge{min-width:0; width:100%} }
+    .badge .l1{font-size:12.5px; color:rgba(255,255,255,.92)}
+    .badge .l2{font-size:12px; color:var(--muted)}
+    .cardno{
+      font-family:var(--mono);
+      color:rgba(255,255,255,.85);
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+    .quote{
+      margin:10px 0 10px;
+      font-size:26px;
+      line-height:1.22;
+      letter-spacing:.2px;
+      font-weight:800;
+    }
+    @media (max-width:520px){ .quote{font-size:22px} }
+    .hint{color:var(--muted); font-size:12.5px; margin:0 0 12px}
+
+    .qblock{margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,.08)}
+    .qblock h4{margin:0 0 8px; font-size:13.5px}
+    ol{margin:0 0 0 18px; padding:0}
+    li{margin:6px 0; color:rgba(255,255,255,.92)}
+
+    .inputs{display:grid; gap:10px; margin-top:12px}
+    label{display:block; font-size:12.5px; color:rgba(255,255,255,.9); margin:0 0 6px}
+    textarea, input[type="text"]{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+      transition:.15s ease;
+      font-family:var(--sans);
+      font-size:14px;
+    }
+    textarea{min-height:110px; resize:vertical}
+    textarea:focus, input[type="text"]:focus{border-color: rgba(124,92,255,.6); box-shadow: 0 0 0 3px rgba(124,92,255,.15)}
+
+    .stickybar{
+      position:sticky;
+      bottom:10px;
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(15,23,34,.92), rgba(15,23,34,.72));
+      backdrop-filter: blur(10px);
+    }
+    .stickybar .grow{flex:1}
+
+    .toast{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      max-width:min(520px, calc(100vw - 32px));
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(15,23,34,.92);
+      box-shadow: var(--shadow);
+      display:none;
+      z-index:999;
+    }
+    .toast.show{display:block; animation: pop .18s ease}
+    @keyframes pop{from{transform:translateY(6px); opacity:.6} to{transform:translateY(0); opacity:1}}
+
+    .modalWrap{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:1000;
+    }
+    .modalWrap.show{display:flex}
+    .modal{
+      width:min(640px, 100%);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(15,23,34,.96), rgba(14,22,32,.88));
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .modal h3{margin:0 0 6px; font-size:16px}
+    .modal p{margin:0 0 12px; color:var(--muted)}
+    .modal .row{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .list{margin-top:10px; display:grid; gap:10px}
+    .entry{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:18px;
+      padding:12px;
+      display:grid;
+      gap:8px;
+    }
+    .entry .top{display:flex; gap:10px; justify-content:space-between; align-items:flex-start; flex-wrap:wrap}
+    .entry .when{color:var(--muted); font-size:12px; font-family:var(--mono)}
+    .entry .title{font-weight:800; margin:2px 0 0; font-size:14px}
+    .entry .sub{color:var(--muted); font-size:12.5px; margin:0}
+    .entry .actionLine{margin:0; color:rgba(255,255,255,.90); font-size:13.5px}
+    .entry .ops{display:flex; gap:8px; flex-wrap:wrap}
+
+    .footer{
+      margin-top:22px;
+      color:rgba(255,255,255,.65);
+      font-size:12px;
+      text-align:center;
+    }
+    .mono{font-family:var(--mono)}
+    .hide{display:none !important}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Slashie創業圖卡</h1>
+          <small>抽一張卡，用一句金句＋三條提問，回到自己</small>
+        </div>
+      </div>
+      <nav>
+        <a class="btn ghost" href="#/">首頁</a>
+        <a class="btn ghost" href="#/draw">抽卡</a>
+        <a class="btn ghost" href="#/journal">我的紀錄</a>
+        <a class="btn ghost" href="#/about">關於</a>
+        <a class="btn ghost" href="#/privacy">隱私/聲明</a>
+      </nav>
+    </header>
+
+    <!-- HOME -->
+    <section id="view-home" class="panel hero">
+      <h2>遇到創業卡關？抽一張卡，回到自己。</h2>
+      <p>用一句金句＋三條提問，陪你看見盲點、修正方向，並做出今天最小的一步。</p>
+      <div class="cta">
+        <button class="btn primary" id="homeQuick">快速抽卡</button>
+        <button class="btn" id="homeChapter">依章節抽卡</button>
+        <a class="btn" href="#/journal">我的紀錄</a>
+      </div>
+
+      <div class="steps">
+        <div class="step"><b>1) 抽一張卡</b><span>先深呼吸三次，再按下抽卡。</span></div>
+        <div class="step"><b>2) 回答三條提問</b><span>你不需要完美答案，只要真實。</span></div>
+        <div class="step"><b>3) 寫下今日最小行動</b><span>讓行動小到你一定做得到。</span></div>
+      </div>
+
+      <div class="grid">
+        <div class="panel" style="margin:0; box-shadow:none">
+          <div class="section-title">
+            <h3>四章結構</h3>
+            <small>Chapter 1–4｜每章 15 張卡</small>
+          </div>
+          <div class="chapters" id="chapterCards"></div>
+        </div>
+
+        <div class="panel" style="margin:0; box-shadow:none">
+          <div class="section-title">
+            <h3>使用建議</h3>
+            <small>Being → Self → Others</small>
+          </div>
+          <p style="margin:10px 0 0; color:var(--muted)">當你卡住時，不是逼自己更努力，而是先回到自己：看見盲點、修正方向，然後做出下一步可行動。</p>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <span class="tag"><span class="dot" style="background:var(--brand)"></span>Being Coached</span>
+            <span class="tag"><span class="dot" style="background:var(--brand2)"></span>Self-Coaching</span>
+            <span class="tag"><span class="dot" style="background:var(--warning)"></span>Coaching Others</span>
+          </div>
+          <p style="margin:12px 0 0; color:var(--muted)">若你很忙：只回答第三題，並寫下一個最小行動。若你很卡：抽一張同章卡，讓焦點更聚焦。</p>
+        </div>
+      </div>
+
+      <div class="footer">© Slashie創業圖卡 2026，僅供課程學員使用</div>
+    </section>
+
+    <!-- DRAW -->
+    <section id="view-draw" class="panel hide">
+      <div class="section-title">
+        <h3>開始抽卡</h3>
+        <small>快速抽卡｜依章節抽卡（同章連抽不重複）</small>
+      </div>
+
+      <div class="grid" style="margin-top:12px">
+        <div class="panel" style="margin:0; box-shadow:none">
+          <h3 style="margin:0 0 6px">快速抽卡</h3>
+          <p style="margin:0; color:var(--muted)">隨機抽一張，給你此刻最需要的提醒。</p>
+          <div style="margin-top:12px">
+            <button class="btn primary" id="btnQuickDraw">抽一張（快速）</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin:0; box-shadow:none">
+          <h3 style="margin:0 0 6px">依章節抽卡</h3>
+          <p style="margin:0; color:var(--muted)">讓提問更精準地對焦你的卡點（同章連抽不重複）。</p>
+
+          <div class="chapters" id="chapterPicker" style="margin-top:12px"></div>
+
+          <div id="selectedChapterBox" class="chapter" style="margin-top:10px; display:none">
+            <div class="meta">
+              <p class="t1" id="selectedChapterTitle" style="margin:0"></p>
+              <p class="t2" id="selectedChapterSub" style="margin:2px 0 0"></p>
+            </div>
+            <span class="tag"><span class="dot" style="background:var(--brand2)"></span>本章連抽不重複</span>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnChapterDraw" disabled>抽一張（本章）</button>
+            <button class="btn" id="btnResetChapter" disabled>重設本章抽卡</button>
+          </div>
+          <p style="margin:10px 0 0; color:var(--muted); font-size:12.5px">抽卡前提示：先問自己——「我此刻最想被看見的是什麼？」</p>
+        </div>
+      </div>
+
+      <div class="footer">© Slashie創業圖卡 2026，僅供課程學員使用</div>
+    </section>
+
+    <!-- CARD -->
+    <section id="view-card" class="panel hide">
+      <div class="cardview">
+        <div class="cardhead">
+          <div class="badge" id="cardBadge"></div>
+          <div class="cardno" id="cardNo"></div>
+        </div>
+        <div class="quote" id="cardQuote">—</div>
+        <p class="hint">先讀金句一次，再回答提問。你不需要完美答案，只要真實。</p>
+
+        <div class="qblock">
+          <h4>三條提問（請直接照直覺回答）</h4>
+          <ol id="cardQuestions"></ol>
+          <p class="hint" style="margin:10px 0 0">你不需要完美答案。真實，就足夠。</p>
+        </div>
+
+        <div class="inputs">
+          <div>
+            <label for="inpReflection">我的反思</label>
+            <textarea id="inpReflection" placeholder="把你此刻最真實的想法寫下來即可，不用修飾。"></textarea>
+          </div>
+          <div>
+            <label for="inpAction">今日最小行動（越小越好）</label>
+            <input id="inpAction" type="text" placeholder="例：今天私訊 1 位潛在顧客，問一個痛點問題。" />
+            <p class="hint" style="margin:8px 0 0">讓行動小到你一定做得到。</p>
+          </div>
+        </div>
+
+        <div class="stickybar">
+          <button class="btn primary grow" id="btnSave">保存到我的紀錄</button>
+          <button class="btn" id="btnDrawAgain">再抽一張</button>
+          <a class="btn" href="#/journal">去我的紀錄</a>
+        </div>
+      </div>
+
+      <div class="footer">© Slashie創業圖卡 2026，僅供課程學員使用</div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section id="view-journal" class="panel hide">
+      <div class="section-title">
+        <h3>我的紀錄</h3>
+        <small>你的反思會累積成一條可回顧的創業修行路</small>
+      </div>
+
+      <div id="journalEmpty" class="panel" style="margin-top:12px; box-shadow:none; display:none">
+        <h3 style="margin:0 0 6px">你的紀錄還是空的</h3>
+        <p style="margin:0; color:var(--muted)">抽一張卡，從今天開始。</p>
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn primary" id="emptyQuick">快速抽卡</button>
+          <button class="btn" id="emptyChapter">依章節抽卡</button>
+        </div>
+      </div>
+
+      <div id="journalList" class="list"></div>
+
+      <div class="footer">© Slashie創業圖卡 2026，僅供課程學員使用</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="view-about" class="panel hide">
+      <h3 style="margin:0 0 6px">關於 Slashie創業圖卡</h3>
+      <p style="margin:0; color:var(--muted)">這是一套結合創業實務與內在成長的反思工具。當你卡住時，不是逼自己更努力，而是先回到自己：看見盲點、修正方向，然後做出下一步可行動。</p>
+
+      <div class="panel" style="margin-top:12px; box-shadow:none">
+        <div class="section-title">
+          <h3>成長路徑</h3>
+          <small>Being Coached → Self-Coaching → Coaching Others</small>
+        </div>
+        <p style="margin:10px 0 0; color:var(--muted)">你可以把抽卡當作：當你需要提醒時被啟導；當你逐漸能看見盲點時自我啟導；當你能用提問支持別人時啟導他人。</p>
+      </div>
+
+      <div class="panel" style="margin-top:12px; box-shadow:none">
+        <div class="section-title">
+          <h3>使用建議</h3>
+          <small>一次只要完成一張卡</small>
+        </div>
+        <ol>
+          <li>先讀金句一次，再看三條提問。</li>
+          <li>把你最真實的答案寫下來（不用修飾）。</li>
+          <li>寫下一個「小到你一定做得到」的最小行動。</li>
+        </ol>
+      </div>
+
+      <div class="footer">© Slashie創業圖卡 2026，僅供課程學員使用</div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="view-privacy" class="panel hide">
+      <h3 style="margin:0 0 6px">隱私 / 使用聲明</h3>
+      <p style="margin:0; color:var(--muted)">本系統採用本機儲存（localStorage），不需要登入。你的抽卡紀錄與反思內容只會保存在你的瀏覽器中，不會上傳到伺服器。</p>
+      <div class="panel" style="margin-top:12px; box-shadow:none">
+        <h3 style="margin:0 0 6px; font-size:14.5px">請注意</h3>
+        <ul style="margin:0 0 0 18px; padding:0; color:rgba(255,255,255,.90)">
+          <li style="margin:6px 0">若你清除瀏覽器資料、使用無痕模式、或更換裝置，紀錄可能會消失。</li>
+          <li style="margin:6px 0">建議你定期將「今日最小行動」抄到自己的筆記工具中。</li>
+        </ul>
+      </div>
+      <div class="panel" style="margin-top:12px; box-shadow:none">
+        <p class="mono" style="margin:0">© Slashie創業圖卡 2026，僅供課程學員使用</p>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="modal" class="modalWrap" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">—</h3>
+      <p id="modalBody">—</p>
+      <div class="row" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script>
+  // ========= Data (60 cards) =========
+  const CHAPTERS = {
+    1: { en: 'Slashie Start-up', zh: '內在覺醒 → 外在行動', dot: 'var(--brand)' },
+    2: { en: 'Slashie MVP', zh: '最小測試 → 持續修正', dot: 'var(--brand2)' },
+    3: { en: 'Slashie Branding', zh: '品牌定位 → 優化系統', dot: 'var(--warning)' },
+    4: { en: 'Slashie Growth', zh: '個人實踐 → 永續發展', dot: 'var(--danger)' },
+  };
+
+  // NOTE: Cards are embedded from user's provided content.
+  const CARDS = [
+    // Chapter 1 (1-15)
+    {id:1, chapter:1, quote:'斜槓，讓熱情成為事業', questions:['我是否清晰內心創業的動機','我的熱情曾給我怎樣的成果','講出將熱情變現的簡單方案']},
+    {id:2, chapter:1, quote:'整合一生經驗為核心價值', questions:['我的經驗能轉化為甚麼服務','我渴望服務哪一類痛點顧客','請分享一段啟發人心的經歷']},
+    {id:3, chapter:1, quote:'斜槓要自律、敏銳、應變', questions:['我能否敏銳應變市場的衝擊','我能否無人監督而保持自律','講出我適合斜槓的三個原因']},
+    {id:4, chapter:1, quote:'斜槓多元身份，分散風險', questions:['只靠單一收入，會有甚麼風險','我曾測試低風險的斜槓收入嗎','請分享斜槓測試的成果和反思']},
+    {id:5, chapter:1, quote:'動機越明確、行動越踏實', questions:['用一句話說出我的真正動機','此動機與我平時行為一致嗎','今天能依此動機行動一次嗎']},
+    {id:6, chapter:1, quote:'斜槓，突破創意的天花板', questions:['我有甚麼不敢公開的夢想嗎','哪些能力和經驗可跨界運用','今天能否打破慣性行動一次']},
+    {id:7, chapter:1, quote:'熱情專長，精準匹配顧客需求', questions:['我熱情的專長對應市場需求嗎','顧客會願付費購買我哪些服務','今天能有低門檻的付費測試嗎']},
+    {id:8, chapter:1, quote:'守護信念，方能走得遠', questions:['我有甚麼至死捍衛的信念呢','能持續守信，一年後會如何','請此刻寫下信念，並貼牆上']},
+    {id:9, chapter:1, quote:'斜槓的底氣：我永遠有選擇', questions:['我曾做過哪些自豪的選擇呢','這選擇是否創造多贏的成果','此刻我能做一個多贏選擇嗎']},
+    {id:10, chapter:1, quote:'斜槓擁抱生命不確定性', questions:['我能承載生命不確定性嗎','我懂轉化焦慮為創造力嗎','此刻能把焦慮變小行動嗎']},
+    {id:11, chapter:1, quote:'斜槓，需要能量管理', questions:['哪些工作讓我持續充電呢','哪些工作正在偷走正能量','今天能按能量做微少突破']},
+    {id:12, chapter:1, quote:'流量會走、信任會留', questions:['我是否追求曝光而忽略品質','我曾為着曝光而傷害信任嗎','現在做一個小行動鞏固承諾']},
+    {id:13, chapter:1, quote:'每個人都值得豐盛富足', questions:['我是否相信自己值得富足','我對金錢仍有負面信念嗎','此刻請寫出金錢最佳信念']},
+    {id:14, chapter:1, quote:'金錢是生命能量', questions:['我如何善用金錢讓愛流動','我需要提升與金錢關係嗎','此刻能用金錢做甚麼行動']},
+    {id:15, chapter:1, quote:'金錢合作，需要契約', questions:['我會因情感而無法講錢嗎','事先有清晰合作協議書嗎','今天能建立保障的機制嗎']},
+
+    // Chapter 2 (16-30)
+    {id:16, chapter:2, quote:'別等完美、小本試錯修正', questions:['我是否因追求完美而遲遲未動','我願把錯誤，視為創業成本嗎','此刻值得嘗試甚麼勇敢小行動']},
+    {id:17, chapter:2, quote:'最小可行產品，快速驗證', questions:['如何用低成本測試創業想法','若失敗，最壞後果是甚麼呢','今天能做低門檻付款測試嗎']},
+    {id:18, chapter:2, quote:'先求活，後求好，再求精', questions:['目前最重要是活下還是完美','今天能啟動先求活的行動嗎','可否馬上行動然後分享感受']},
+    {id:19, chapter:2, quote:'創業就是解決顧客問題', questions:['我渴望解決顧客甚麼痛點','我能否真正解決顧客問題','今天能用心聽顧客痛點嗎']},
+    {id:20, chapter:2, quote:'擁抱變局，發現新商機', questions:['時代巨變是否蘊藏新商機','市場變局中我能抓住什麼','今天可否測試嶄新小機遇']},
+    {id:21, chapter:2, quote:'槓桿資源，放大影響力', questions:['我是否凡事自己來而不求助','可否列出三位潛在合作夥伴','今天能主動關心其中一位嗎']},
+    {id:22, chapter:2, quote:'斜槓不是分裂，而是整合', questions:['我會否因斜槓而感到混亂','多身份能否源自同一價值','試用一句話整合多重身份']},
+    {id:23, chapter:2, quote:'用系統流程，照亮我路', questions:['我最欣賞怎麼樣的系統流程','我會如何參考這些系統流程','今天能設計自家獨特流程嗎']},
+    {id:24, chapter:2, quote:'創造成功案例，再大量複製', questions:['我有哪些成功突破案例呢','我能把經驗整理成流程嗎','今天能寫一個成功流程嗎']},
+    {id:25, chapter:2, quote:'持續收集數據，讓數據說話', questions:['哪些數據是我值得重視的','數據背後反映怎樣的問題','如何改善數據呈現的問題']},
+    {id:26, chapter:2, quote:'顧客成功，你才成功', questions:['我是否真正關心顧客感受','成交後，我仍關心顧客嗎','我今天能跟進一位顧客嗎']},
+    {id:27, chapter:2, quote:'太在意自己，顧客就會走', questions:['我會執著哪些想法和感受','我曾因錯判形勢而受挫嗎','試即說出我對形勢的評估']},
+    {id:28, chapter:2, quote:'有效成交，要少說多聽', questions:['我是否急於講話而會打斷顧客','我曾打斷身邊人而惹人反感嗎','可否問朋友：我會否打斷對方']},
+    {id:29, chapter:2, quote:'健康界線，讓斜槓更幸福', questions:['我能坦然拒絕他人請求嗎','設定健康界線讓我舒服嗎','此刻我該誠實對甚麼說不']},
+    {id:30, chapter:2, quote:'孤獨，是斜槓必修科', questions:['誰真正理解我的事業狀態','我如何面對斜槓的孤獨感','今天能向一位朋友坦誠嗎']},
+
+    // Chapter 3 (31-45)
+    {id:31, chapter:3, quote:'信譽，是品牌核心資產', questions:['我是否為短期利益而犧牲信譽','當我犯錯時會主動承擔責任嗎','今天能修補一段受損的信任嗎']},
+    {id:32, chapter:3, quote:'獨特賣點，讓人脫穎而出', questions:['顧客為何選擇我，而非他人','顧客會主動推薦我的服務嗎','我如何讓賣點持續有效變現']},
+    {id:33, chapter:3, quote:'品牌魅力把痛點化為亮點', questions:['我是否已療癒人生最痛經歷','我能否寫出痛點轉化的故事','我能把故事變成服務價值嗎']},
+    {id:34, chapter:3, quote:'人品決定品牌高度', questions:['我是否言行一致對待顧客','我是否在壓力下仍守原則','今天能做一件守信行動嗎']},
+    {id:35, chapter:3, quote:'將成功複製為系統', questions:['我是否過度依賴個人的努力','系統流程能否幫我省下精力','今天能建立簡單流程步驟嗎']},
+    {id:36, chapter:3, quote:'聚焦價值，而非價格競爭', questions:['我是否因害怕沒客戶而降價','低價會否消耗我的能量品質','我如何讓顧客感到物超所值']},
+    {id:37, chapter:3, quote:'決策必須立足核心價值', questions:['我的品牌是否守護核心價值','近期決策曾否偏離核心價值','今天能將價值轉為小行動嗎']},
+    {id:38, chapter:3, quote:'開拓藍海，遠離紅海廝殺', questions:['我是否身處過度競爭的市場','哪些市場需求，尚未被滿足','我此刻看到哪個新的需求點']},
+    {id:39, chapter:3, quote:'成功，是讓顧客覺得超值', questions:['顧客是否感到服務物超所值','哪些流程細節，最能感動人','今天能做感動顧客的小事嗎']},
+    {id:40, chapter:3, quote:'成功品牌，立足完善系統', questions:['我欣賞品牌有哪些成功系統','我可如何應用這些成功系統','今天能落實這系統的行動嗎']},
+    {id:41, chapter:3, quote:'公關災難，源於價值失守', questions:['我是否重視收入，多於良知','我會忽略弱勢人士的感受嗎','今天能建立危機回應流程嗎']},
+    {id:42, chapter:3, quote:'誠信第一，信任無價', questions:['顧客為何願交付時間金錢給我','顧客是否信任我必定兌現承諾','試做一個鞏固信任的小行動嗎']},
+    {id:43, chapter:3, quote:'創業，需要成就顧客', questions:['我是否太想證明自己的能力','我的顧客最想解決甚麼痛點','今天能傾聽一位顧客需求嗎']},
+    {id:44, chapter:3, quote:'穩定累積，勝過短暫爆紅', questions:['我願意為產品做到極致嗎','今天最值得專注甚麼環節','此刻能立刻採取哪個行動']},
+    {id:45, chapter:3, quote:'長遠誠信，勝過短期利益', questions:['我曾否為着利益而犧牲信任','顧客因此承擔不必要傷害嗎','今天如何把誠信落實到細節']},
+
+    // Chapter 4 (46-60)
+    {id:46, chapter:4, quote:'先站穩、再站高', questions:['我是否急於擴張而忽略基礎','目前運作模式能踏實成長嗎','試做一個鞏固基礎的小行動']},
+    {id:47, chapter:4, quote:'善用流程，節省精力', questions:['哪些工作正在持續消耗我','用流程分工能提升效能嗎','此刻請檢視流程系統品質']},
+    {id:48, chapter:4, quote:'提供顧客終生價值(CLV)', questions:['我是否把顧客視為長期夥伴','回流比例反映甚麼關鍵問題','我如何持續為顧客創造價值']},
+    {id:49, chapter:4, quote:'留住舊客勝過開發新客', questions:['我會否忽略舊客真實感受','我是否了解舊客流失原因','我今天能關心一位舊客嗎']},
+    {id:50, chapter:4, quote:'善用顧客關係管理CRM', questions:['我是否系統記錄顧客的資訊','我為顧客提供個人化服務嗎','今天我能做甚麼踏實小行動']},
+    {id:51, chapter:4, quote:'轉型，需要智慧和勇氣', questions:['面對時代巨變，我如何應變','哪些指標顯示我必須要轉型','我需要調整甚麼、轉型何處']},
+    {id:52, chapter:4, quote:'選擇，比努力重要', questions:['我是否走在對的市場方向','今天可否檢視創業的成果','此刻請分享我的重要選擇']},
+    {id:53, chapter:4, quote:'凝聚小團隊，創造大貢獻', questions:['團隊溝通是否順暢具信任感','我會如何讓成員發揮所長呢','此刻可否為團隊做一件實事']},
+    {id:54, chapter:4, quote:'重客觀成果，輕主觀努力', questions:['我的努力，能有客觀成果嗎','我是否一味努力卻忽略市場','可否請人誠實評價我的成果']},
+    {id:55, chapter:4, quote:'平台是工具，你才是核心', questions:['哪個平台有效凝聚我的客群','我會用平台傳遞核心理念嗎','請即用平台傳遞一個小價值']},
+    {id:56, chapter:4, quote:'建立自動循環營運漏斗', questions:['如何吸引-服務-成交-回流','目前流程最弱環節在哪裡','今天請即時優化一個節點']},
+    {id:57, chapter:4, quote:'跨界槓桿，放大成果', questions:['我想邀請誰成為跨界夥伴？','跨界資源能變現為收入嗎？','我今天會邀約哪位協作者？']},
+    {id:58, chapter:4, quote:'善用團隊，利己利他', questions:['我的成功是否協助他人成功','團隊是否感受到我真誠尊重','今天能主動支持一位夥伴嗎']},
+    {id:59, chapter:4, quote:'創業是你我她共贏', questions:['過去的創業有持續共贏嗎','如何評價我的創業修行路','試做一件踏實共贏的小事']},
+    {id:60, chapter:4, quote:'創業，是人生修行道場', questions:['創業路上最大的挑戰是甚麼','如何讓挑戰轉化為修行道場','此刻請分享創業修行的感悟']},
+  ];
+
+  // ========= Storage keys =========
+  const K_ENTRIES = 'slashie_journal_entries_v1';
+  const K_POOL = (ch) => `slashie_chapter_pool_v1_${ch}`;
+
+  // ========= Helpers =========
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+  const byId = (id) => CARDS.find(c => c.id === Number(id));
+  const cardsByChapter = (ch) => CARDS.filter(c => c.chapter === Number(ch)).map(c=>c.id);
+
+  function canUseStorage(){
+    try{
+      const k='__t';
+      localStorage.setItem(k,'1');
+      localStorage.removeItem(k);
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  function toast(msg){
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    window.clearTimeout(toast._tm);
+    toast._tm = window.setTimeout(()=> t.classList.remove('show'), 2600);
+  }
+
+  function showModal({title, body, actions}){
+    const mw = $('#modal');
+    $('#modalTitle').textContent = title;
+    $('#modalBody').textContent = body;
+    const act = $('#modalActions');
+    act.innerHTML = '';
+    actions.forEach(a=>{
+      const b = document.createElement('button');
+      b.className = 'btn ' + (a.kind||'');
+      b.textContent = a.label;
+      b.addEventListener('click', ()=>{ hideModal(); a.onClick && a.onClick(); });
+      act.appendChild(b);
+    });
+    mw.classList.add('show');
+    mw.setAttribute('aria-hidden','false');
+  }
+  function hideModal(){
+    const mw = $('#modal');
+    mw.classList.remove('show');
+    mw.setAttribute('aria-hidden','true');
+  }
+  $('#modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') hideModal(); });
+
+  function fmtTime(ms){
+    const d = new Date(ms);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+  }
+
+  function getEntries(){
+    try{
+      const raw = localStorage.getItem(K_ENTRIES);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    }catch(e){
+      return [];
+    }
+  }
+  function setEntries(arr){
+    localStorage.setItem(K_ENTRIES, JSON.stringify(arr));
+  }
+
+  function getPool(ch){
+    const key = K_POOL(ch);
+    try{
+      const raw = localStorage.getItem(key);
+      const arr = raw ? JSON.parse(raw) : null;
+      return Array.isArray(arr) ? arr : null;
+    }catch(e){
+      return null;
+    }
+  }
+  function setPool(ch, arr){
+    localStorage.setItem(K_POOL(ch), JSON.stringify(arr));
+  }
+  function resetPool(ch){
+    const ids = cardsByChapter(ch);
+    setPool(ch, ids);
+  }
+
+  function pickRandom(arr){
+    const i = Math.floor(Math.random()*arr.length);
+    return { item: arr[i], index: i };
+  }
+
+  function quickDraw(){
+    const {item} = pickRandom(CARDS);
+    location.hash = `#/card/${item.id}?mode=quick`;
+  }
+
+  function chapterDraw(ch){
+    let pool = getPool(ch);
+    if(!pool || pool.length===0){
+      // initialize
+      resetPool(ch);
+      pool = getPool(ch) || [];
+    }
+    if(pool.length===0){
+      // impossible but safe
+      showModal({
+        title:'抽卡狀態異常',
+        body:'本章抽卡池無內容，請重設後再試。',
+        actions:[{label:'重設本章抽卡', kind:'primary', onClick:()=>{ resetPool(ch); toast('已重設本章抽卡'); }},{label:'取消'}]
+      });
+      return;
+    }
+    const {item:cardId, index} = pickRandom(pool);
+    pool.splice(index,1);
+    setPool(ch, pool);
+    location.hash = `#/card/${cardId}?mode=chapter&chapter=${ch}`;
+  }
+
+  // ========= UI rendering =========
+  function renderChapters(targetEl, onPick){
+    targetEl.innerHTML = '';
+    Object.keys(CHAPTERS).forEach(k=>{
+      const ch = Number(k);
+      const c = CHAPTERS[ch];
+      const row = document.createElement('div');
+      row.className = 'chapter';
+      row.innerHTML = `
+        <div class="meta">
+          <p class="t1">Chapter ${ch}｜${c.en}</p>
+          <p class="t2">${c.zh}</p>
+        </div>
+        <button class="btn" type="button">選擇</button>
+      `;
+      row.querySelector('button').addEventListener('click', ()=> onPick && onPick(ch));
+      targetEl.appendChild(row);
+    });
+  }
+
+  function renderCard(card, mode, chapter, entry){
+    const ch = card.chapter;
+    const cmeta = CHAPTERS[ch];
+    $('#cardBadge').innerHTML = `
+      <div class="l1">Chapter ${ch}｜${cmeta.en}</div>
+      <div class="l2">${cmeta.zh}</div>
+    `;
+    $('#cardNo').textContent = `Card #${card.id}`;
+    $('#cardQuote').textContent = card.quote;
+    const ol = $('#cardQuestions');
+    ol.innerHTML = '';
+    card.questions.forEach(q=>{
+      const li = document.createElement('li');
+      li.textContent = q;
+      ol.appendChild(li);
+    });
+
+    // Prefill if entryId provided
+    $('#inpReflection').value = entry?.reflection || '';
+    $('#inpAction').value = entry?.action || '';
+
+    // Save handler uses current card
+    $('#btnSave').onclick = () => {
+      if(!canUseStorage()){
+        showModal({
+          title:'無法保存紀錄',
+          body:'你的瀏覽器目前無法使用本機儲存（localStorage）。你仍可抽卡，但反思不會被保存。',
+          actions:[{label:'知道了', kind:'primary'}]
+        });
+        return;
+      }
+      const reflection = $('#inpReflection').value.trim();
+      const action = $('#inpAction').value.trim();
+      const entries = getEntries();
+
+      // If editing an existing entry, update it; else create new.
+      const now = Date.now();
+      const entryId = entry?.entryId || (String(now) + '-' + Math.random().toString(16).slice(2));
+      const newEntry = {
+        entryId,
+        createdAt: entry?.createdAt || now,
+        updatedAt: now,
+        cardId: card.id,
+        chapter: card.chapter,
+        mode: mode || 'quick',
+        reflection,
+        action,
+      };
+
+      const idx = entries.findIndex(e=>e.entryId===entryId);
+      if(idx>=0) entries[idx]=newEntry; else entries.push(newEntry);
+      setEntries(entries);
+      toast('已保存。今天只做一小步，也算在前進。');
+    };
+
+    $('#btnDrawAgain').onclick = () => {
+      if(mode==='chapter' && chapter){
+        chapterDraw(Number(chapter));
+      }else{
+        quickDraw();
+      }
+    };
+
+    // If chapter mode, detect if pool has become empty AFTER this draw? (We check on next draw.)
+  }
+
+  function renderJournal(){
+    const list = $('#journalList');
+    const empty = $('#journalEmpty');
+    list.innerHTML = '';
+
+    const entries = getEntries().slice().sort((a,b)=> (b.createdAt||0)-(a.createdAt||0));
+    if(entries.length===0){
+      empty.style.display='block';
+      return;
+    }
+    empty.style.display='none';
+
+    entries.forEach(e=>{
+      const card = byId(e.cardId);
+      const ch = e.chapter || card?.chapter;
+      const cmeta = CHAPTERS[ch] || {en:'', zh:''};
+      const div = document.createElement('div');
+      div.className='entry';
+      const quote = card?.quote || '(卡片內容未找到)';
+      const actionLine = e.action ? e.action : '（未填寫最小行動）';
+      div.innerHTML = `
+        <div class="top">
+          <div>
+            <div class="when">${fmtTime(e.createdAt || Date.now())}</div>
+            <div class="title">Card #${e.cardId}｜${quote}</div>
+            <p class="sub">Chapter ${ch}｜${cmeta.en}｜${cmeta.zh}</p>
+          </div>
+          <div class="ops">
+            <button class="btn" type="button">查看</button>
+            <button class="btn danger" type="button">刪除</button>
+          </div>
+        </div>
+        <p class="actionLine"><span class="mono">今日最小行動：</span>${escapeHtml(actionLine)}</p>
+      `;
+      const [btnView, btnDel] = div.querySelectorAll('button');
+      btnView.addEventListener('click', ()=>{
+        location.hash = `#/card/${e.cardId}?entryId=${encodeURIComponent(e.entryId)}`;
+      });
+      btnDel.addEventListener('click', ()=>{
+        showModal({
+          title:'刪除這筆紀錄？',
+          body:'刪除後無法復原（因為是本機儲存）。',
+          actions:[
+            {label:'取消'},
+            {label:'確定刪除', kind:'danger', onClick:()=>{
+              const next = getEntries().filter(x=>x.entryId!==e.entryId);
+              setEntries(next);
+              renderJournal();
+              toast('已刪除');
+            }}
+          ]
+        });
+      });
+      list.appendChild(div);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+
+  // ========= Routing =========
+  const VIEWS = {
+    home: $('#view-home'),
+    draw: $('#view-draw'),
+    card: $('#view-card'),
+    journal: $('#view-journal'),
+    about: $('#view-about'),
+    privacy: $('#view-privacy'),
+  };
+
+  function showView(name){
+    Object.values(VIEWS).forEach(v=> v.classList.add('hide'));
+    VIEWS[name].classList.remove('hide');
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  function parseHash(){
+    // formats:
+    // #/              home
+    // #/draw
+    // #/journal
+    // #/about
+    // #/privacy
+    // #/card/12?mode=chapter&chapter=2
+    const h = location.hash || '#/';
+    const [path, queryStr] = h.slice(1).split('?');
+    const parts = path.split('/').filter(Boolean);
+    const q = new URLSearchParams(queryStr || '');
+    return {parts, q};
+  }
+
+  let selectedChapter = null;
+
+  function onRoute(){
+    const {parts, q} = parseHash();
+    const first = parts[0] || '';
+
+    if(first==='' ){
+      showView('home');
+      return;
+    }
+
+    if(first==='draw'){
+      showView('draw');
+      return;
+    }
+
+    if(first==='journal'){
+      showView('journal');
+      renderJournal();
+      return;
+    }
+
+    if(first==='about'){
+      showView('about');
+      return;
+    }
+
+    if(first==='privacy'){
+      showView('privacy');
+      return;
+    }
+
+    if(first==='card'){
+      const id = parts[1];
+      const card = byId(id);
+      if(!card){
+        showView('card');
+        $('#cardBadge').innerHTML = '<div class="l1">找不到這張卡</div><div class="l2">請回到首頁重新抽卡</div>';
+        $('#cardNo').textContent='';
+        $('#cardQuote').textContent='(Card not found)';
+        $('#cardQuestions').innerHTML='';
+        $('#inpReflection').value='';
+        $('#inpAction').value='';
+        $('#btnSave').onclick = ()=> location.hash='#/';
+        $('#btnDrawAgain').onclick = ()=> location.hash='#/draw';
+        return;
+      }
+
+      // If entryId exists, load entry and prefill
+      const entryId = q.get('entryId');
+      let entry = null;
+      if(entryId){
+        entry = getEntries().find(e=>e.entryId===entryId) || null;
+      }
+
+      const mode = q.get('mode') || entry?.mode || 'quick';
+      const chapter = q.get('chapter') || entry?.chapter || null;
+
+      // If in chapter mode, check whether pool is empty and user is trying to draw again? we show modal when they press draw.
+      // However, we also support showing the "抽完" modal when the pool is empty on draw page.
+
+      showView('card');
+      renderCard(card, mode, chapter, entry);
+      return;
+    }
+
+    // fallback
+    showView('home');
+  }
+
+  // ========= Init =========
+  function init(){
+    // Chapter blocks on home
+    renderChapters($('#chapterCards'), (ch)=>{ location.hash = '#/draw'; setTimeout(()=> selectChapter(ch), 0); });
+
+    // Chapter picker on draw
+    renderChapters($('#chapterPicker'), (ch)=> selectChapter(ch));
+
+    $('#btnQuickDraw').addEventListener('click', quickDraw);
+    $('#homeQuick').addEventListener('click', ()=>{ location.hash = '#/draw'; setTimeout(()=>quickDraw(), 0); });
+    $('#homeChapter').addEventListener('click', ()=>{ location.hash = '#/draw'; });
+
+    $('#btnChapterDraw').addEventListener('click', ()=>{
+      if(!selectedChapter) return;
+      // If pool exists and is empty, show completion modal.
+      const pool = getPool(selectedChapter);
+      if(pool && pool.length===0){
+        showModal({
+          title:'你已抽完本章全部圖卡',
+          body:'要重新洗牌再抽嗎？',
+          actions:[
+            {label:'改抽其他章'},
+            {label:'重新洗牌（本章）', kind:'primary', onClick:()=>{ resetPool(selectedChapter); toast('已重新洗牌'); chapterDraw(selectedChapter);} }
+          ]
+        });
+        return;
+      }
+      chapterDraw(selectedChapter);
+    });
+
+    $('#btnResetChapter').addEventListener('click', ()=>{
+      if(!selectedChapter) return;
+      showModal({
+        title:'重設本章抽卡？',
+        body:'將清除本章抽卡池（只影響「連抽不重複」機制，不會刪除你的反思紀錄）。',
+        actions:[
+          {label:'取消'},
+          {label:'確定重設', kind:'primary', onClick:()=>{ resetPool(selectedChapter); toast('已重設本章抽卡'); }}
+        ]
+      });
+    });
+
+    $('#emptyQuick').addEventListener('click', ()=>{ location.hash = '#/draw'; setTimeout(()=>quickDraw(), 0); });
+    $('#emptyChapter').addEventListener('click', ()=>{ location.hash = '#/draw'; });
+
+    window.addEventListener('hashchange', onRoute);
+
+    // Default route
+    if(!location.hash) location.hash = '#/';
+    onRoute();
+
+    // storage warning (soft)
+    if(!canUseStorage()){
+      toast('提示：你的瀏覽器可能無法保存紀錄（localStorage）。');
+    }
+  }
+
+  function selectChapter(ch){
+    selectedChapter = Number(ch);
+    const c = CHAPTERS[selectedChapter];
+    $('#selectedChapterBox').style.display = 'flex';
+    $('#selectedChapterTitle').textContent = `Chapter ${selectedChapter}｜${c.en}`;
+    $('#selectedChapterSub').textContent = c.zh;
+    $('#btnChapterDraw').disabled = false;
+    $('#btnResetChapter').disabled = false;
+
+    // Ensure pool exists (init lazily)
+    const pool = getPool(selectedChapter);
+    if(pool===null){
+      resetPool(selectedChapter);
+    }
+  }
+
+  init();
+  </script>
+</body>
+</html>
